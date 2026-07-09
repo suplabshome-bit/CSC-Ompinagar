@@ -1642,6 +1642,44 @@
         }
     }
 </script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
+<script>
+  // ধাপ ২ থেকে পাওয়া আপনার নিজস্ব Firebase Config এখানে বসান
+  const firebaseConfig = {
+  apiKey: "AIzaSyA4_jLXBl2_BDYXK6PXk2cDOroIVjDf6lw",
+  authDomain: "csc-ompi.firebaseapp.com",
+  databaseURL: "https://csc-ompi-default-rtdb.firebaseio.com",
+  projectId: "csc-ompi",
+  storageBucket: "csc-ompi.firebasestorage.app",
+  messagingSenderId: "180785739388",
+  appId: "1:180785739388:web:884ac58d228d128713bbf9",
+  measurementId: "G-KYKN80QCH9"
+};
+  
+  // Firebase ইনিশিয়ালাইজ করা
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  // ডাটা পাঠানোর ফাংশন (আপনার ফর্মের Submit ইভেন্টে এটি কল করবেন)
+  function saveData() {
+    // উদাহরণস্বরূপ কাস্টমারের নাম এবং মোবাইল নম্বর নেওয়া হচ্ছে
+    const customerName = document.getElementById('nameInput').value;
+    const customerPhone = document.getElementById('phoneInput').value;
+
+    // csc_customers নামক নোডের অধীনে ডাটা পুশ (Save) হবে
+    database.ref('csc_customers').push({
+      name: customerName,
+      phone: customerPhone,
+      timestamp: Date.now()
+    }).then(() => {
+      alert("ডাটা সফলভাবে এন্ট্রি হয়েছে!");
+      // ফর্ম রিসেট করার কোড এখানে দিতে পারেন
+    }).catch((error) => {
+      console.error("ডাটা সেভ করতে সমস্যা হয়েছে: ", error);
+    });
+  }
+</script>
 </body>
 </html>
